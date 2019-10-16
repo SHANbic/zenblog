@@ -9,13 +9,13 @@ import {
 } from "react-native";
 import { Context } from "../context/BlogContext";
 import { Feather } from "@expo/vector-icons";
+import { Header } from "react-navigation-stack";
 
 const IndexScreen = ({ navigation }) => {
   const { state, addBlogPost, deleteBlogPost } = useContext(Context);
 
   return (
     <View>
-      <Text>Index Screen</Text>
       <Button title="Add a post" onPress={addBlogPost} />
       <FlatList
         data={state}
@@ -39,6 +39,16 @@ const IndexScreen = ({ navigation }) => {
   );
 };
 
+IndexScreen.navigationOptions = ({navigation}) => {
+  return {
+    headerRight: (
+      <TouchableOpacity onPress={() => navigation.navigate("Create")}>
+        <Feather name="plus" style={styles.headerRight} />
+      </TouchableOpacity>
+    )
+  };
+};
+
 const styles = StyleSheet.create({
   icon: {
     fontSize: 22
@@ -53,6 +63,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16
+  },
+  headerRight: {
+    fontSize: 30,
+    marginRight: 15
   }
 });
 
