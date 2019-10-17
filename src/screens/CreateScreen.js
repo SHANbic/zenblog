@@ -23,7 +23,7 @@ const CreateScreen = ({ navigation }) => {
       />
       <Button
         title="Submit your post"
-        onPress={() => addBlogPost(title, content)}
+        onPress={() => addBlogPost(title, content, ()=>navigation.navigate('Index'))}
       />
     </View>
   );
