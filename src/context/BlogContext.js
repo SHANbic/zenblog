@@ -3,6 +3,10 @@ import createDataContext from './createDataContext';
 
 const blogReducer = (state, action) => {
   switch (action.type) {
+    case 'edit_blogpost':
+      return state.map(post =>
+        post.id === action.payload.id ? action.payload : post
+      );
     case 'add_blogpost':
       return [
         ...state,
@@ -38,8 +42,17 @@ const deleteBlogPost = dispatch => {
   };
 };
 
+const editBlogPost = dispatch => {
+  return (id, title, content) => {
+    dispatch({
+      type: 'edit_blogpost',
+      payload: { id, title, content }
+    });
+  };
+};
+
 export const { Provider, Context } = createDataContext(
   blogReducer,
-  { addBlogPost, deleteBlogPost },
+  { addBlogPost, deleteBlogPost, editBlogPost },
   [{ title: 'First Post', content: 'initial test post', id: 1 }]
 );

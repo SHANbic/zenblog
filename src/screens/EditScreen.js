@@ -3,16 +3,16 @@ import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 import { Context } from '../context/BlogContext';
 
 const EditScreen = ({ navigation }) => {
-  const { addBlogPost, state } = useContext(Context);
+  const { state, editBlogPost } = useContext(Context);
   const id = navigation.getParam('id');
   const post = state.find(post => post.id === id);
 
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState(post.title);
+  const [content, setContent] = useState(post.content);
 
   return (
     <View>
-      <Text style={styles.label}>Blog title</Text>
+      <Text style={styles.label}>Title</Text>
       <TextInput
         style={styles.inputText}
         value={title}
@@ -26,9 +26,7 @@ const EditScreen = ({ navigation }) => {
       />
       <Button
         title="Submit your post"
-        onPress={() =>
-          addBlogPost(title, content, () => navigation.navigate('Index'))
-        }
+        onPress={() => editBlogPost(id, title, content)}
       />
     </View>
   );
