@@ -9,7 +9,8 @@ const ShowScreen = ({ navigation }) => {
 
   return (
     <View>
-      <Text>show screen for {post.title}</Text>
+      <Text style={styles.title}>{post.title}</Text>
+      <Text style={styles.content}>{post.content}</Text>
     </View>
   );
 };
