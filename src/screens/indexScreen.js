@@ -61,10 +61,10 @@ const styles = StyleSheet.create({
   view: {
     padding: 15,
     borderTopWidth: 1,
-    borderTopColor: "black",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center"
+    borderTopColor: 'black',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   text: {
     fontSize: 16
@@ -72,6 +72,13 @@ const styles = StyleSheet.create({
   headerRight: {
     fontSize: 30,
     marginRight: 15
+  },
+  empty: {
+    fontSize: 30,
+    marginHorizontal: 10
+  },
+  sucker: {
+    fontSize: 50
   }
 });
 
