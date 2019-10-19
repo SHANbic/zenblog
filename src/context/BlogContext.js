@@ -4,7 +4,8 @@ import jsonServer from '../api/jsonServer';
 
 const blogReducer = (state, action) => {
   switch (action.type) {
-    case 'get_blogposts' : return action.payload;
+    case 'get_blogposts':
+      return action.payload;
     case 'edit_blogpost':
       return state.map(post =>
         post.id === action.payload.id ? action.payload : post
@@ -33,7 +34,13 @@ const getBlogPosts = dispatch => {
 };
 
 const addBlogPost = dispatch => {
-  return (title, content, callback) => {
+  return async (title, content, callback) => {
+    await jsonServer.post('/blogposts', { title, content });
+    if (callback) {
+      callback();
+    }
+  };
+  /* return (title, content, callback) => {
     dispatch({
       type: 'add_blogpost',
       payload: {
@@ -42,7 +49,7 @@ const addBlogPost = dispatch => {
       }
     });
     callback();
-  };
+  }; */
 };
 
 const deleteBlogPost = dispatch => {
