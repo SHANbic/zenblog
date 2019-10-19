@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   View,
   Text,
@@ -12,34 +12,34 @@ import { Feather } from '@expo/vector-icons';
 import { Header } from 'react-navigation-stack';
 
 const IndexScreen = ({ navigation }) => {
-  const { state, addBlogPost, deleteBlogPost } = useContext(Context);
+  const { state, addBlogPost, deleteBlogPost, getBlogPosts } = useContext(
+    Context
+  );
+
+  useEffect(() => {
+    getBlogPosts();
+  }, []);
+
   return (
     <View>
-      {state.length > 0 ? (
-        <FlatList
-          data={state}
-          keyExtractor={blogPost => blogPost.title}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity
-                onPress={() => navigation.navigate('Show', { id: item.id })}
-              >
-                <View style={styles.view}>
-                  <Text style={styles.text}>{item.title}</Text>
-                  <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
-                    <Feather style={styles.icon} name="trash-2" />
-                  </TouchableOpacity>
-                </View>
-              </TouchableOpacity>
-            );
-          }}
-        />
-      ) : (
-        <Text style={styles.empty}>
-          Not even a single post on your blog
-          <Text style={styles.sucker}> sucker!</Text>
-        </Text>
-      )}
+      <FlatList
+        data={state}
+        keyExtractor={blogPost => blogPost.title}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Show', { id: item.id })}
+            >
+              <View style={styles.view}>
+                <Text style={styles.text}>{item.title}</Text>
+                <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+                  <Feather style={styles.icon} name="trash-2" />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
+          );
+        }}
+      />
     </View>
   );
 };
@@ -72,13 +72,6 @@ const styles = StyleSheet.create({
   headerRight: {
     fontSize: 30,
     marginRight: 15
-  },
-  empty: {
-    fontSize: 30,
-    marginHorizontal: 10
-  },
-  sucker: {
-    fontSize: 50
   }
 });
 
